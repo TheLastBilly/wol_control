@@ -27,6 +27,11 @@
             <p class="message"> {{ message }} </p>
         {% endif %}
         {% endfor %}
+        <p>
+            <form method="GET" action="/logout">
+                <button>Log Out</button>
+            </form>
+        </p>
     </div>
 </body> 
 </html>
