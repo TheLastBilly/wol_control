@@ -1,0 +1,4 @@
+/flask-env/
+__pycache__
+/wol_control/__pycache__
+/wol_control/db.sqlite3
