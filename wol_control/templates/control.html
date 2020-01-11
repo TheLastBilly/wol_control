@@ -27,11 +27,7 @@
             <p class="message"> {{ message }} </p>
         {% endif %}
         {% endfor %}
-        <p>
-            <form method="GET" action="/logout">
-                <button>Log Out</button>
-            </form>
-        </p>
+        <a href="{{ url_for('auth.logout') }}" class="logout_button">Log Out</a>
     </div>
 </body> 
 </html>

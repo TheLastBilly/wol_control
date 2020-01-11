@@ -43,6 +43,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    display: inline-block;
 }
 
 .controls h3 {
@@ -66,7 +67,12 @@
     outline: none;
     transform: translateY(1px);
     cursor: pointer;
-    box-shadow: 0 5px #999
+    box-shadow: 0 5px #999;
+}
+
+.logout_button {
+    display: block;
+    text-align: center;
 }
 
 .remember input {
