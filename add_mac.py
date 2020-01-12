@@ -18,13 +18,18 @@ with app.app_context():
         print("Invalid mac address")
         quit()
     
+    ip = input("IP address: ")
+
+    if not re.match("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", ip.lower()):
+        print("Invalid IP address")
+        quit()
 
     admin_in = input("Only admin [Y/n]")
 
     if(admin_in == "N" or admin_in == "n"):
         is_admin = False
 
-    new_mac = Mac(mac=mac, admin=is_admin, name=name, public_id=str(base64.b64encode(name.encode("utf-8")), "utf-8"))
+    new_mac = Mac(mac=mac, admin=is_admin, name=name, public_id=str(base64.b64encode(name.encode("utf-8")), "utf-8"), ip=ip)
 
     print("Mac address {} added succesfully".format(name))
 

@@ -11,5 +11,6 @@ class Mac(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     mac = db.Column(db.String(18))
+    ip = db.Column(db.String(16))
     admin = db.Column(db.Boolean())
     public_id = db.Column(db.String(100))

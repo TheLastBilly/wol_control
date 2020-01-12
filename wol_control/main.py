@@ -5,6 +5,8 @@ from .models import Mac
 
 main = Blueprint('main', __name__)
 
+remote_user = ""
+
 def get_controls( ):
     controls = []
     if current_user.admin:
@@ -21,7 +23,7 @@ def index():
         return render_template('control.html', message="No controllers have been regystered")
     return render_template( 'control.html', controls=controls)
 
-@main.route('/control/<string:public_id>/<string:command>',methods=['POST'])
+@main.route('/control/<string:public_id>/<string:command>')
 @login_required
 def toggle_control(public_id, command):
     control = Mac.query.filter_by(public_id=public_id).first()
@@ -29,7 +31,10 @@ def toggle_control(public_id, command):
         return render_template('control.html', message="No such controller found")
     
     if command == "on":
-        os.system("/usr/local/bin/wol -r {}".format(control.mac))
+        os.system("/usr/local/bin/wol {}".format(control.mac))
         return render_template('control.html', message="Turning {} on".format(control.name), controls=[control], redirect_home = True)
+    if command == "off":
+        os.system("ssh {}@{} ~/.wol_control/remote_shutdown.sh".format(remote_user, control.ip))
+        return render_template('control.html', message="Turning {} off".format(control.name), controls=[control], redirect_home = True)
     else:
         return render_template('control.html', message="Invalid command", controls=[control], redirect_home = True)

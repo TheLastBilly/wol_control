@@ -19,8 +19,13 @@
         {% for control in controls %}
         <h3>{{ control.name }}</h3>
         <p>
-            <form method="POST" action="/control/{{control.public_id}}/on">
+            <form method="GET" action="/control/{{control.public_id}}/on">
                 <button>Turn On</button>
+            </form>
+        </p>
+        <p>
+            <form method="GET" action="/control/{{control.public_id}}/off">
+                <button>Turn Off</button>
             </form>
         </p>
         {% if message %}
