@@ -1,4 +1,5 @@
 from wol_control import *
+from wol_control import utils
 from wol_control.models import Mac
 import re, base64
 app = create_app()
@@ -26,13 +27,13 @@ with app.app_context():
         mac = input("Mac address: ")
         is_admin = True
 
-        if not re.match("[0-9a-f]{2}([:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", mac.lower()):
+        if not utils.validate_mac_input(mac):
             print("Invalid mac address")
             quit()
         
         ip = input("IP address: ")
 
-        if not re.match("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", ip.lower()):
+        if not utils.validate_ip_input(ip):
             print("Invalid IP address")
             quit()
 
