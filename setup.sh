@@ -1,9 +1,9 @@
 #!/bin/bash
 
 python3 -m pip install --user virtualenv
-python3 -m virtualenv ~/.flask_env
+python3 -m virtualenv ~/.wol_control_env
 
-source ~/.flask_env/bin/activate
+source ~/.wol_control_env/bin/activate
 
 python3 -m pip install -r requirements.txt
 
@@ -11,8 +11,11 @@ echo "Initializing database"
 
 python3 init_db.py
 
-python3 create_user.py
-python3 add_mac.py
+echo "Please create a new user:"
+python3 manage_users.py
+
+echo "Please add a new mac address:"
+python3 manage_devices.py
 
 echo "Copying nginx and systemd files"
 
