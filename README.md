@@ -113,7 +113,7 @@ sudo systemctl restart nginx
 
 ## Systemd setup
 
-In case you want Wol Control to start whenever your machine boots up, you'll have to setup a service file for it. There's already one provided with this repository **wol_control.service**, so you can use it as a template.
+You'll have to setup a service file for Wol Control. There's already one provided with this repository **wol_control.service**, so you can use it as a template.
 
 ```
 [Unit]
