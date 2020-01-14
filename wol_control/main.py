@@ -7,6 +7,8 @@ main = Blueprint('main', __name__)
 
 remote_user = ""
 
+log_filename = "../wol_control_access.log"
+
 def get_controls( ):
     controls = []
     if current_user.admin:
@@ -27,14 +29,24 @@ def index():
 @login_required
 def toggle_control(public_id, command):
     control = Mac.query.filter_by(public_id=public_id).first()
+    def return_message(msg):
+        return render_template('control.html', message=msg, redirect_home=True)
+    def log_access( command ):
+        with open(log_filename, "a") as log_file:
+            log_file.write("User {} turned {} {}".format(current_user.name, control.name, command))
+
     if control is None:
-        return render_template('control.html', message="No such controller found")
+        return_message("No such device found.")        
+    elif control.admin is True and current_user.admin is False:
+        return_message("Access denied.")    
     
     if command == "on":
+        log_access(command)
         os.system("/usr/local/bin/wol {}".format(control.mac))
-        return render_template('control.html', message="Turning {} on".format(control.name), controls=[control], redirect_home = True)
+        return_message("Turning {} on".format(control.name))
     if command == "off":
+        log_access(command)
         os.system("ssh {}@{} ~/.wol_control/remote_shutdown.sh".format(remote_user, control.ip))
-        return render_template('control.html', message="Turning {} off".format(control.name), controls=[control], redirect_home = True)
+        return_message("Turning {} off".format(control.name))
     else:
-        return render_template('control.html', message="Invalid command", controls=[control], redirect_home = True)
+        return_message("Invalid command")
