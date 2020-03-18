@@ -3,11 +3,10 @@ Description=Gunicorn service of wol_control
 After=network.target
 
 [Service]
-User=sammy
+User=root
 Group=www-data
-WorkingDirectory=/home/sammy/wol_control
-Environment="PATH=/home/sammy/.wol_control_env/bin:/usr/bin"
-ExecStart=/home/sammy/.wol_control_env/bin/gunicorn --workers 3 --access-logfile wol_control.log --bind unix:wol_control.sock -m 007 wsgi
+WorkingDirectory=/app
+ExecStart=/usr/local/bin/gunicorn --workers 3 --access-logfile wol_control.log --bind unix:/tmp/wol_control.sock -m 007 wsgi
 
 [Install]
 WantedBy=multi-user.target

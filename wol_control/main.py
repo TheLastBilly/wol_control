@@ -5,7 +5,7 @@ from .models import Mac
 
 main = Blueprint('main', __name__)
 
-remote_user = ""
+remote_user = "wol_control"
 
 log_filename = "../wol_control_access.log"
 
